@@ -1,11 +1,9 @@
-// api/auth-url.js
-// Genera la URL de autenticación de Google OAuth2
 export default function handler(req, res) {
-  const clientId     = process.env.GOOGLE_CLIENT_ID;
-  const redirectUri  = process.env.NEXT_PUBLIC_URL + '/callback';
+  const clientId    = process.env.GOOGLE_CLIENT_ID;
+  const redirectUri = 'https://fit-bit-air.vercel.app/callback';
 
   if (!clientId) {
-    return res.status(500).json({ error: 'GOOGLE_CLIENT_ID no configurado en Vercel.' });
+    return res.status(500).json({ error: 'GOOGLE_CLIENT_ID no configurado.' });
   }
 
   const scopes = [
@@ -23,6 +21,5 @@ export default function handler(req, res) {
     include_granted_scopes: 'true',
   });
 
-  const url = `https://accounts.google.com/o/oauth2/v2/auth?${params}`;
-  res.status(200).json({ url });
+  res.status(200).json({ url: `https://accounts.google.com/o/oauth2/v2/auth?${params}` });
 }
